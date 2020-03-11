@@ -2,11 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'bs-navbar',
-  templateUrl: './bs-navbar.component.html',
-  styleUrls: ['./bs-navbar.component.scss']
+  templateUrl: './bs-navbar.component.html'
 })
-export class BsNavbarComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class BsNavbarComponent {}
