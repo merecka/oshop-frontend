@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnDestroy {
-  userSubscription: Subscription = null;
+  private userSubscription: Subscription = null;
   constructor(
     private userService: UserService,
     authService: AuthService,
