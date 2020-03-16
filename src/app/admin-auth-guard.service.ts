@@ -9,11 +9,14 @@ import { map, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AdminAuthGuard implements CanActivate {
-  constructor(private auth: AuthService, private userService: UserService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   canActivate(): Observable<boolean> {
-    return this.auth.user$
+    return this.authService.userObservable
       .pipe(switchMap(user => this.userService.get(user.uid).valueChanges()))
-      .pipe(map(k => k.isAdmin));
+      .pipe(map(appUser => appUser.isAdmin));
   }
 }

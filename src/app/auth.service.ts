@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { AppUser } from './models/app-user';
+import { User } from './models/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
@@ -11,29 +11,31 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<firebase.User>;
+  userObservable: Observable<firebase.User>;
 
   constructor(
     private userService: UserService,
-    private afAuth: AngularFireAuth,
+    private angularFireAuth: AngularFireAuth,
     private route: ActivatedRoute
   ) {
-    this.user$ = afAuth.authState;
+    this.userObservable = angularFireAuth.authState;
   }
 
   login() {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    this.angularFireAuth.auth.signInWithRedirect(
+      new firebase.auth.GoogleAuthProvider()
+    );
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.angularFireAuth.auth.signOut();
   }
 
-  get appUser$(): Observable<AppUser> {
-    return this.user$.pipe(
+  get User$(): Observable<User> {
+    return this.userObservable.pipe(
       switchMap(user => {
         if (user) {
           return this.userService.get(user.uid).valueChanges();
