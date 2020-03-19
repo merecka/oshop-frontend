@@ -21,7 +21,7 @@ export class AuthService {
     this.userObservable = angularFireAuth.authState;
   }
 
-  login() {
+  login(): void {
     let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
     localStorage.setItem('returnUrl', returnUrl);
 
@@ -30,7 +30,7 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logout(): void {
     this.angularFireAuth.auth.signOut();
   }
 
