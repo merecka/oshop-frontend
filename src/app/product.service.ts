@@ -16,7 +16,7 @@ export class ProductService {
     return this.database.list('/products').push(product);
   }
 
-  getProductsObservable(): Observable<[Product]> {
+  getProducts(): Observable<[Product]> {
     return this.database
       .list('/products')
       .snapshotChanges()
@@ -32,5 +32,9 @@ export class ProductService {
 
   update(productId, product): void {
     this.database.object('/products/' + productId).update(product);
+  }
+
+  delete(productId): void {
+    this.database.object('/products/' + productId).remove();
   }
 }

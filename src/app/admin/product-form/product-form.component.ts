@@ -15,6 +15,7 @@ export class ProductFormComponent {
   productSubscription: Subscription = null;
   productObservable: Observable<Product>;
   id: string;
+  delete_message = 'Are you sure you want to delete this product?';
 
   constructor(
     private router: Router,
@@ -36,6 +37,13 @@ export class ProductFormComponent {
     if (this.id) this.productService.update(this.id, product);
     else this.productService.create(product);
 
+    this.router.navigate(['/admin/products']);
+  }
+
+  delete() {
+    if (!confirm(`${this.delete_message}`)) return;
+
+    this.productService.delete(this.id);
     this.router.navigate(['/admin/products']);
   }
 }
