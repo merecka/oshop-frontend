@@ -11,7 +11,7 @@ import { documentToDomainObject } from './../utils/firebase/firebaseUtils';
 export class CategoryService {
   constructor(private database: AngularFireDatabase) {}
 
-  getCategoriesObservable(): Observable<[Category]> {
+  getCategories(): Observable<[Category]> {
     return this.database
       .list('/categories', query => query.orderByChild('name'))
       .snapshotChanges()

@@ -23,7 +23,7 @@ export class ProductFormComponent {
     private categoryService: CategoryService,
     private productService: ProductService
   ) {
-    this.categoriesObservable = categoryService.getCategoriesObservable();
+    this.categoriesObservable = categoryService.getCategories();
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
